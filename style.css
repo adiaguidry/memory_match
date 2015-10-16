@@ -214,11 +214,12 @@ ul li a {
 }
 
 .match {
-    opacity: .5;
+    transition-delay: 2s;
+    visibility: hidden;
 }
 #win{
     visibility: hidden;
 }
-.hide{
+.hide, .match_hide{
     visibility: hidden;
 }
