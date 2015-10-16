@@ -27,16 +27,19 @@ function cardClick (element) {
             $(first_card_clicked).find('.front').addClass('match');
             $(second_card_clicked).find('.front').addClass('match');
             console.log('first set ', first_card_clicked.find('.front').find('img').attr('src'), second_card_clicked.find('.front').find('img').attr('src'));
-
+            //set global var back to null
             first_card_clicked = null;
             second_card_clicked = null;
+            
+            //increase match counter 
             match_counter ++;
             if(match_counter == 9){
                 $('#win').css('visibility', 'visible');
             }
 
-            //console.log(match_counter);
+           
         }
+         //Cards did not match rest back to show and set global var to null
         else {
             var reset_card_1 = $(first_card_clicked).find('.back');
             var reset_card_2 = $(second_card_clicked).find('.back');
