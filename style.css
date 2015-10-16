@@ -154,49 +154,72 @@ ul li a {
 }
 
 .bubbles {
-    opacity:.5;
-    position:absolute;
-    bottom:0px;
-    margin-left:1200px;
-    animation: bubble 65s infinite;
+    opacity: .5;
+    position: absolute;
+    bottom: 0px;
+    margin-left: 1200px;
 }
 .big_bubble {
     width:30px;
+
 }
 
 .md_bubble {
     width:20px;
+
 }
 .sm_bubble{
     width:15px;
+
 }
 .bubble1{
     margin-left:1200px;
+    animation: bubble 120s infinite;
 }
 .bubble2{
     margin-left:180px;
+    animation: bubble 95s infinite;
 }
 .bubble3{
     margin-left:260px;
+    animation: bubble 90s infinite;
 }
 .bubble4{
     margin-left:1100px;
+    animation: bubble 60s infinite;
 }
 .bubble5{
     margin-left:580px;
+    animation: bubble 90s infinite;
 }
 .bubble6{
     margin-left:660px;
+    animation: bubble 75s infinite;
 }
 .bubble7{
     margin-left:270px;
+    animation: bubble 100s infinite;
 }
 .bubble8{
     margin-left:710px;
+    animation: bubble 95s infinite;
 }
 .bubble9{
     margin-left:1080px;
+    animation: bubble 60s infinite;
 }
 .bubble10{
     margin-left:860px;
+    animation: bubble 100s infinite;
+}
+
+.match {
+    transition-delay: 2s;
+    visibility: hidden;
+}
+#win{
+    visibility: hidden;
+}
+.hide, .match_hide{
+    visibility: hidden;
 }
