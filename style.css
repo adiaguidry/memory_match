@@ -133,7 +133,7 @@ ul li a {
 }
 
 #message{
-    font-size: 1.5em;
+    font-size: 2em;
     font-family: 'Paytone One', sans-serif;
     color: #fff;
     text-shadow: 2px 5px 3px orangered;
@@ -223,7 +223,7 @@ ul li a {
 
 }
 .biggest{
-    width:60px;
+    width:50px;
 }
 
 .md_bubble {

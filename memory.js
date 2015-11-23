@@ -9,14 +9,14 @@ var games_played = 0;
 var accuracy_percent = (Math.floor((accuracy) * 100));
 var cards = 18;
 var difficulty = 'easy';
-var time = 700;
-var i =0;
-var j =0;
-var counter =0;
+var i = 0;
+var j = 0;
+var counter = 0;
+var generate_bubbles = null;
 
-function make_bubble(){
-    var bubble_array =['bubble1', 'bubble2', 'bubble3', 'bubble4', 'bubble5', 'bubble6', 'bubble7','bubble8', 'bubble9','bubble10'];
-    var bubble_size = ['sm_bubble','md_bubble', 'big_bubble', 'biggest'];
+function make_bubble() {
+    var bubble_array = ['bubble1', 'bubble2', 'bubble3', 'bubble4', 'bubble5', 'bubble6', 'bubble7', 'bubble8', 'bubble9', 'bubble10'];
+    var bubble_size = ['sm_bubble', 'md_bubble', 'big_bubble', 'biggest', 'sm_bubble', 'md_bubble'];
     var new_bubble = $('<img>').attr('src', 'images/bubble.png').addClass('bubbles');
     new_bubble.addClass(bubble_array[i]);
     new_bubble.addClass(bubble_size[j]);
@@ -24,44 +24,45 @@ function make_bubble(){
     i++;
     j++;
     counter++;
+    if (i == bubble_array.length && (j)) {
+        i = 0;
+    }
+    if (j == bubble_size.length) {
+        j = 0;
+    }
+    check_counter();
+}
+
+function check_counter() {
+    var message = $('#message');
     console.log(counter);
-    if(i == bubble_array.length){
-        i =0;
+    var bubble_container = $('.all_bubbles');
+    switch (attempts) {
+        case 3:
+            audio_clip($('#bubbles'));
+            make_bubble();
+            break;
+        case 6:
+            $(message).text('Oh No! Bruce is getting hungry');
+            $('.bubbles').css('display', 'none');
+            make_bubble();
+            break;
+        case 10:
+            $(message).text('Too Late! Click reset to play again.');
+            make_bubble();
+            audio_clip($('#intervention'));
+            $('#game-area').css('visibility', 'hidden');
+            $('html').addClass('end');
+            $('#shark').removeClass('sharkBody').addClass('sharkBody_end');
+            $(bubble_container).remove();
+            counter = null;
+            break;
     }
-    if(j == bubble_size.length){
-        j =0;
-    }
-    if(counter === 400){
-        setInterval(make_bubble, 100);
-        console.log(counter, time ,"more bubbles");
-    }
-    if(counter === 440){
-        console.log(counter);
-        bubble_clip();
-
-    }
-    if(counter === 520){
-        console.log("we are here", counter);
-        $('#message').text('Oh No! Bruce is getting hungry');
-        $('.bubbles').css('display', 'none');
-        $('.all_bubbles').remove();
-    }
-    if(counter === 570) {
-        $('#message').text('Too Late!');
-        $('#game-area').css('visibility', 'hidden');
-        $('html').addClass('end');
-        $('#shark').removeClass('sharkBody').addClass('sharkBody_end');
-        $('.all_bubbles').remove();
-    }
-
 }
 
 
 function card_creation(front_img_src, bootstrap_card_size) {
 
-//generate random img index assign it to front img
-
-//dom creation
     var front_img = $('<img>').attr('src', front_img_src).addClass('cards');
     var back_img = $('<img>').attr('src', 'images/darla.jpg').addClass('cards');
     var div_back = $('<div>').addClass('back').append(back_img).attr('onclick', 'cardClick(this)');
@@ -71,8 +72,6 @@ function card_creation(front_img_src, bootstrap_card_size) {
     $(div_front).append(front_img);
     $(div_card).append(div_front, div_back);
     $('#game-area').append(div_card);
-
-//splices img index from array in order for there to be no more than the matching pair on board
 
 }
 
@@ -90,7 +89,6 @@ function board_creation() {
 
     switch (difficulty) {
         case "easy":
-            //do easy game here
             var card_front_img_random = front_image_source.slice(0, 4);
             card_front_img_random = card_front_img_random.concat(card_front_img_random);
             cards = 8;
@@ -98,7 +96,6 @@ function board_creation() {
             var card_size = 'col-md-3';
             break;
         case "medium":
-            //meduim game
             var card_front_img_random = front_image_source.slice(0, 6);
             card_front_img_random = card_front_img_random.concat(card_front_img_random);
             cards = 12;
@@ -106,7 +103,6 @@ function board_creation() {
             var card_size = 'col-md-3';
             break;
         case 'hard':
-            //hard game
             var card_front_img_random = front_image_source;
             card_front_img_random = card_front_img_random.concat(card_front_img_random);
             cards = 18;
@@ -115,7 +111,7 @@ function board_creation() {
             break;
     }
     var i = 0;
-
+//generate random img index assign it to front img
     while (i < cards) {
         var front = Math.floor(Math.random() * (card_front_img_random.length));
         card_creation(card_front_img_random[front], card_size);
@@ -131,6 +127,7 @@ function difficulty_level(level) {
 }
 
 function cardClick(element) {
+    make_bubble();
     var front_img = $(element).parent().find('.front');
     //hides back of card
     var back = $(element);
@@ -139,29 +136,30 @@ function cardClick(element) {
     if (front_img.hasClass('match')) {
         return;
     }
-
     //checks if its first card if true stores src in first_card_clicked
     if (first_card_clicked == null) {
         //stores first_card_clicked var with src
         first_card_clicked = $(element).parent().find('.front');
-
     }
     else {
         // stores src in second_card_clicked var
         second_card_clicked = $(element).parent().find('.front');
         attempts++;
-
         //check if we have a match
         if (first_card_clicked.find('img').attr('src') == second_card_clicked.find('img').attr('src')) {
             $(first_card_clicked).find('img').addClass('match');
             $(second_card_clicked).find('img').addClass('match');
             var sound_clip = first_card_clicked.find('img').attr('src');
-            switch(sound_clip){
+            switch (sound_clip) {
                 case'images/darl.png':
-                    darla_clip();
+                    audio_clip($('#darla'));
+                        $('.back').css('opacity', '.4');
+                        setTimeout(function () {
+                            $('.back').css('opacity', '1');
+                        }, 1000);
                     break;
-                case'images/dory.png':
-                    dory_clip();
+                case'images/dory.jpg':
+                    audio_clip($('#dory'));
                     break;
             }
             //set global var back to null
@@ -172,8 +170,8 @@ function cardClick(element) {
             match_counter++;
             display_stats();
             if (match_counter == total_possible_matches) {
-                $('#win').css('visibility', 'visible');
-                $('.play_again').css('visibility', 'visible');
+                $('#message').text('You Won!! want to play again?');
+                reset();
             }
         }
         //Cards did not match rest back to show and set global var to null
@@ -187,36 +185,17 @@ function cardClick(element) {
         }
     }
 }
-function bubble_clip() {
-    var bubbles = $('#bubbles');
-    $(bubbles)[0].volume = 0.5;
-    $(bubbles)[0].load();
-    $(bubbles)[0].play();
-}
-function dory_clip() {
-    var dory = $('#dory');
-    $(dory)[0].volume = 0.5;
-    $(dory)[0].load();
-    $(dory)[0].play();
-}
-function darla_clip() {
-    var darla = $('#darla');
-    $(darla)[0].volume = 0.5;
-    $(darla)[0].load();
-    $(darla)[0].play();
-    $('.back').css('opacity', '.5');
-    setTimeout(function(){  $('.back').css('opacity', '1');
-    }, 1000);
+function audio_clip(sound) {
+    console.log(sound);
+    var clip = sound;
+    $(clip)[0].volume = 0.5;
+    $(clip)[0].load();
+    $(clip)[0].play();
 }
 
-
-$('.play').on('click', function () {
-    bubble_clip();
-});
 $(document).ready(function () {
-    setInterval(make_bubble, 700);
+    audio_clip($('#bruce'));
 });
-
 
 function reset() {
     reset_counter++;
@@ -226,22 +205,21 @@ function reset() {
     $('.back').show();
     first_card_clicked = null;
     second_card_clicked = null;
-    $('#win').css('visibility', 'hidden');
-    $('.play_again').css('visibility', 'hidden');
     reset_stats();
     $('#game-area').html('');
     $('#message').text('');
+    $('.bubbles').remove();
     $('#game-area').css('visibility', 'visible');
     $('html').removeClass('end');
     $('#shark').addClass('sharkBody').removeClass('sharkBody_end');
-    //$('.all_bubbles').css(di);
+    generate_bubbles = setInterval(make_bubble, 700);
+    counter =0;
     board_creation();
 }
 
 function display_stats() {
     accuracy = match_counter / attempts;
     var accuracy_percent = (Math.floor((accuracy) * 100));
-
     $('.games_played_value').empty().append(games_played);
     $('.attempts_value').empty().append(attempts);
     $('.accuracy_value').empty().append(accuracy_percent + "%");
