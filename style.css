@@ -125,8 +125,19 @@ ul li a {
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
 }
+.sharkBody_end {
+    width: 600px;
+    position: absolute;
+    bottom: 100px;
+    margin-left: 300px;
+}
 
-
+#message{
+    font-size: 1.5em;
+    font-family: 'Paytone One', sans-serif;
+    color: #fff;
+    text-shadow: 2px 5px 3px orangered;
+}
 
 @keyframes shark {
     0% {
@@ -204,12 +215,15 @@ ul li a {
     opacity: .5;
     position: absolute;
     bottom: 0px;
-    margin-left: 1200px;
+    margin-left: 600px;
 }
 
 .big_bubble {
     width: 30px;
 
+}
+.biggest{
+    width:60px;
 }
 
 .md_bubble {
@@ -228,17 +242,17 @@ ul li a {
 }
 
 .bubble2 {
-    margin-left: 180px;
+    margin-left: 480px;
     animation: bubble 95s infinite;
 }
 
 .bubble3 {
-    margin-left: 260px;
+    margin-left: 400px;
     animation: bubble 90s infinite;
 }
 
 .bubble4 {
-    margin-left: 1100px;
+    margin-left: 1150px;
     animation: bubble 60s infinite;
 }
 
@@ -248,12 +262,12 @@ ul li a {
 }
 
 .bubble6 {
-    margin-left: 660px;
+    margin-left: 300px;
     animation: bubble 75s infinite;
 }
 
 .bubble7 {
-    margin-left: 270px;
+    margin-left: 230px;
     animation: bubble 100s infinite;
 }
 
@@ -263,7 +277,7 @@ ul li a {
 }
 
 .bubble9 {
-    margin-left: 1080px;
+    margin-left: 1000px;
     animation: bubble 60s infinite;
 }
 
@@ -293,16 +307,29 @@ ul li a {
 .hide, .match_hide {
     visibility: hidden;
 }
+.end{
+    background-color: red;
+    opacity: .5;
+}
 .mobile{
     display: none;
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 900px) {
     .container {
         display: none;
     }
     .mobile{
         display: block;
         color: white;
+        margin: 2%;
+        text-shadow: 2px 2px #000;
+        font-family: 'Paytone One', sans-serif;
+        text-align: center;
+
+    }
+    body {
+        background-image: url("http://www.disney.co.uk/finding-nemo/images/backgrounds/home.jpg");
+        height:1300px;
     }
 
 }

@@ -19,6 +19,7 @@
 
 </head>
 <body>
+<div class="container">
 <header>
     <div class="mobile"><h3>Go to a desktop and Enjoy this memory match game!</h3></div>
     <div class="container">
@@ -30,6 +31,7 @@
                 <img  onclick="difficulty_level('medium')" class="bubble_easy_hard" src="images/level_two.png">
                 <img  onclick="difficulty_level('hard')" class="bubble_easy_hard" src="images/level_three.png">
             </div>
+        <h5 id="message" onclick="reset()"></h5>
         <nav>
             <ul>
                 <li>
@@ -50,7 +52,7 @@
 </header>
 <div class="container">
 <div>
-    <img class="sharkBody" src="images/bruce.png">
+    <img id="shark" class="sharkBody" src="images/bruce.png">
 </div>
 <div class="hook">
     <div class="hook_img">
@@ -81,7 +83,10 @@
                 </div>
             </div>
         </div>
-        <div class="all_bubbles">
+    <audio id="bubbles" src="mybubbles.mp3"></audio>
+    <audio id="darla" src="Darla!.mp3"></audio>
+    <audio id="dory" src="Just-keep-swimming-swimming-swimming.mp3"></audio>
+    <div class="all_bubbles">
             <img class="big_bubble bubbles bubble1" src="images/bubble.png">
             <img class="big_bubble bubbles bubble2" src="images/bubble.png">
             <img class="md_bubble bubbles bubble3" src="images/bubble.png">
@@ -97,6 +102,7 @@
 </div>
 <!-- /.container -->
 
+</div>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>

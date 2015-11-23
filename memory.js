@@ -9,32 +9,52 @@ var games_played = 0;
 var accuracy_percent = (Math.floor((accuracy) * 100));
 var cards = 18;
 var difficulty = 'easy';
+var time = 700;
+var i =0;
+var j =0;
+var counter =0;
 
+function make_bubble(){
+    var bubble_array =['bubble1', 'bubble2', 'bubble3', 'bubble4', 'bubble5', 'bubble6', 'bubble7','bubble8', 'bubble9','bubble10'];
+    var bubble_size = ['sm_bubble','md_bubble', 'big_bubble', 'biggest'];
+    var new_bubble = $('<img>').attr('src', 'images/bubble.png').addClass('bubbles');
+    new_bubble.addClass(bubble_array[i]);
+    new_bubble.addClass(bubble_size[j]);
+    $('.all_bubbles').append(new_bubble);
+    i++;
+    j++;
+    counter++;
+    console.log(counter);
+    if(i == bubble_array.length){
+        i =0;
+    }
+    if(j == bubble_size.length){
+        j =0;
+    }
+    if(counter === 400){
+        setInterval(make_bubble, 100);
+        console.log(counter, time ,"more bubbles");
+    }
+    if(counter === 440){
+        console.log(counter);
+        bubble_clip();
 
-//lose option in progress
-//function lost(){
-//    setTimeout(function () {
-//        $('.bubble1, .bubble2').css('animation', 'bubble 5s infinite');
-//    }, 21000);
-//    setTimeout(function () {
-//        $('.bubble5, .bubble6, .bubble7, .bubble8').css('animation', 'bubble 7s infinite');
-//    }, 42000);
-//    setTimeout(function () {
-//        $('.bubble3, .bubble4, .bubble10').css('animation', 'bubble 6s infinite');
-//    }, 53000);
-//    setTimeout(function () {
-//        $('.bubble1, .bubble2, .bubble3, .bubble4, .bubble5, .bubble6, .bubble7, .bubble8, .bubble9, .bubble10').css('animation', 'bubble 3s infinite');
-//    }, 64000);
-//    setTimeout(function () {
-//        $('.back').fadeOut();
-//    }, 76000);
-//    setTimeout(function () {
-//        $('.front').addClass('match');
-//    }, 96000);
-//    setTimeout(function () {
-//        $('#win').text('Oh No! Bruce is getting Hungry.. you took too long, Try again?').css('visibility', 'visible');
-//    }, 96000);
-//}
+    }
+    if(counter === 520){
+        console.log("we are here", counter);
+        $('#message').text('Oh No! Bruce is getting hungry');
+        $('.bubbles').css('display', 'none');
+        $('.all_bubbles').remove();
+    }
+    if(counter === 570) {
+        $('#message').text('Too Late!');
+        $('#game-area').css('visibility', 'hidden');
+        $('html').addClass('end');
+        $('#shark').removeClass('sharkBody').addClass('sharkBody_end');
+        $('.all_bubbles').remove();
+    }
+
+}
 
 
 function card_creation(front_img_src, bootstrap_card_size) {
@@ -60,7 +80,7 @@ function card_creation(front_img_src, bootstrap_card_size) {
 function board_creation() {
     var front_image_source = ['images/lilturtle.jpg',
         'images/darl.png',
-        'images/doris.jpg',
+        'images/dory.jpg',
         'http://showbizgeek.com/wp-content/uploads/2013/04/Screen-Shot-2013-04-29-at-18.45.30.png',
         'https://s-media-cache-ak0.pinimg.com/originals/1c/0c/70/1c0c70c869e98cd5c9ad0fd68410a5ff.jpg',
         'http://static.tumblr.com/jrqkomz/hOxmf1y09/finding_nemo.jpg',
@@ -135,6 +155,15 @@ function cardClick(element) {
         if (first_card_clicked.find('img').attr('src') == second_card_clicked.find('img').attr('src')) {
             $(first_card_clicked).find('img').addClass('match');
             $(second_card_clicked).find('img').addClass('match');
+            var sound_clip = first_card_clicked.find('img').attr('src');
+            switch(sound_clip){
+                case'images/darl.png':
+                    darla_clip();
+                    break;
+                case'images/dory.png':
+                    dory_clip();
+                    break;
+            }
             //set global var back to null
             first_card_clicked = null;
             second_card_clicked = null;
@@ -158,6 +187,35 @@ function cardClick(element) {
         }
     }
 }
+function bubble_clip() {
+    var bubbles = $('#bubbles');
+    $(bubbles)[0].volume = 0.5;
+    $(bubbles)[0].load();
+    $(bubbles)[0].play();
+}
+function dory_clip() {
+    var dory = $('#dory');
+    $(dory)[0].volume = 0.5;
+    $(dory)[0].load();
+    $(dory)[0].play();
+}
+function darla_clip() {
+    var darla = $('#darla');
+    $(darla)[0].volume = 0.5;
+    $(darla)[0].load();
+    $(darla)[0].play();
+    $('.back').css('opacity', '.5');
+    setTimeout(function(){  $('.back').css('opacity', '1');
+    }, 1000);
+}
+
+
+$('.play').on('click', function () {
+    bubble_clip();
+});
+$(document).ready(function () {
+    setInterval(make_bubble, 700);
+});
 
 
 function reset() {
@@ -172,6 +230,11 @@ function reset() {
     $('.play_again').css('visibility', 'hidden');
     reset_stats();
     $('#game-area').html('');
+    $('#message').text('');
+    $('#game-area').css('visibility', 'visible');
+    $('html').removeClass('end');
+    $('#shark').addClass('sharkBody').removeClass('sharkBody_end');
+    //$('.all_bubbles').css(di);
     board_creation();
 }
 
