@@ -30,7 +30,6 @@ function make_bubble() {
     if (j == bubble_size.length) {
         j = 0;
     }
-    check_counter();
 }
 
 function check_counter() {
@@ -39,8 +38,8 @@ function check_counter() {
     var bubble_container = $('.all_bubbles');
     switch (attempts) {
         case 3:
+            var lots_of_bubbles = setInterval(make_bubble, 100);
             audio_clip($('#bubbles'));
-            make_bubble();
             break;
         case 6:
             $(message).text('Oh No! Bruce is getting hungry');
@@ -59,7 +58,6 @@ function check_counter() {
             break;
     }
 }
-
 
 function card_creation(front_img_src, bootstrap_card_size) {
 
@@ -145,6 +143,7 @@ function cardClick(element) {
         // stores src in second_card_clicked var
         second_card_clicked = $(element).parent().find('.front');
         attempts++;
+        check_counter();
         //check if we have a match
         if (first_card_clicked.find('img').attr('src') == second_card_clicked.find('img').attr('src')) {
             $(first_card_clicked).find('img').addClass('match');
