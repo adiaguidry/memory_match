@@ -38,25 +38,28 @@ function check_counter() {
     var bubble_container = $('.all_bubbles');
     switch (attempts) {
         case 3:
-            var lots_of_bubbles = setInterval(make_bubble, 100);
+            $(bubble_container).show();
+            generate_bubbles = setInterval(make_bubble, 200);
             audio_clip($('#bubbles'));
             break;
-        case 6:
+        case 4:
             $(message).text('Oh No! Bruce is getting hungry');
-            $('.bubbles').css('display', 'none');
-            make_bubble();
+            generate_bubbles = null;
             break;
-        case 10:
-            $(message).text('Too Late! Click reset to play again.');
-            make_bubble();
+        case 6:
+            $(message).text("If you don't match the next cards Bruce will eat us all!");
+            $(bubble_container).hide();
+            break;
+        case 7:
+            $(message).text('AAaaaahh! Click reset to play again.');
             audio_clip($('#intervention'));
             $('#game-area').css('visibility', 'hidden');
             $('html').addClass('end');
             $('#shark').removeClass('sharkBody').addClass('sharkBody_end');
-            $(bubble_container).remove();
             counter = null;
             break;
     }
+    console.log('this is the interval ', generate_bubbles);
 }
 
 function card_creation(front_img_src, bootstrap_card_size) {
@@ -70,7 +73,6 @@ function card_creation(front_img_src, bootstrap_card_size) {
     $(div_front).append(front_img);
     $(div_card).append(div_front, div_back);
     $('#game-area').append(div_card);
-
 }
 
 //loops through card creation until there are 18 cards
@@ -84,7 +86,6 @@ function board_creation() {
         'https://s-media-cache-ak0.pinimg.com/236x/a9/3f/11/a93f11b692924f7dc50b095c70aa9d7a.jpg',
         'http://media.coveringmedia.com/media/images/movies/2012/09/09/nemo_02cf.jpg',
         'http://mobileanimalbackgrounds.com/img/shark/finding-nemo-nemo-dory-a-shark.jpg'];
-
     switch (difficulty) {
         case "easy":
             var card_front_img_random = front_image_source.slice(0, 4);
@@ -125,7 +126,6 @@ function difficulty_level(level) {
 }
 
 function cardClick(element) {
-    make_bubble();
     var front_img = $(element).parent().find('.front');
     //hides back of card
     var back = $(element);
@@ -142,8 +142,6 @@ function cardClick(element) {
     else {
         // stores src in second_card_clicked var
         second_card_clicked = $(element).parent().find('.front');
-        attempts++;
-        check_counter();
         //check if we have a match
         if (first_card_clicked.find('img').attr('src') == second_card_clicked.find('img').attr('src')) {
             $(first_card_clicked).find('img').addClass('match');
@@ -152,10 +150,10 @@ function cardClick(element) {
             switch (sound_clip) {
                 case'images/darl.png':
                     audio_clip($('#darla'));
-                        $('.back').css('opacity', '.4');
-                        setTimeout(function () {
-                            $('.back').css('opacity', '1');
-                        }, 1000);
+                    $('.back').css('opacity', '.4');
+                    setTimeout(function () {
+                        $('.back').css('opacity', '1');
+                    }, 1000);
                     break;
                 case'images/dory.jpg':
                     audio_clip($('#dory'));
@@ -169,19 +167,26 @@ function cardClick(element) {
             match_counter++;
             display_stats();
             if (match_counter == total_possible_matches) {
-                $('#message').text('You Won!! want to play again?');
-                reset();
+                console.log('won');
+                $('.won').text('You Won!! Play again?');
+                $('all_bubbles').hide();
             }
         }
-        //Cards did not match rest back to show and set global var to null
-        else {
+        else{
+
             var reset_card_1 = $(first_card_clicked).parent().find('.back');
             var reset_card_2 = $(second_card_clicked).parent().find('.back');
             $(reset_card_1).show(1000);
             $(reset_card_2).show(1000);
             first_card_clicked = null;
             second_card_clicked = null;
-        }
+            attempts++;
+            display_stats();
+            setTimeout(function(){
+                check_counter();
+            },1000);
+        } //Cards did not match rest back to show and set global var to null
+
     }
 }
 function audio_clip(sound) {
@@ -193,10 +198,11 @@ function audio_clip(sound) {
 }
 
 $(document).ready(function () {
-    audio_clip($('#bruce'));
+    audio_clip($('#hello'));
 });
 
 function reset() {
+    audio_clip('#bruce');
     reset_counter++;
     games_played++;
     $('.games_played_value').empty().append(games_played);
@@ -207,12 +213,12 @@ function reset() {
     reset_stats();
     $('#game-area').html('');
     $('#message').text('');
-    $('.bubbles').remove();
+    $('all_bubbles').hide();
     $('#game-area').css('visibility', 'visible');
     $('html').removeClass('end');
     $('#shark').addClass('sharkBody').removeClass('sharkBody_end');
-    generate_bubbles = setInterval(make_bubble, 700);
-    counter =0;
+    counter = 0;
+    generate_bubbles = null;
     board_creation();
 }
 
