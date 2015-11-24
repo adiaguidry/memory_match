@@ -14,6 +14,7 @@ var j = 0;
 var counter = 0;
 var generate_bubbles = null;
 
+//generates bubbles during audio clip as attempts increase
 function make_bubble() {
     var bubble_array = ['bubble1', 'bubble2', 'bubble3', 'bubble4', 'bubble5', 'bubble6', 'bubble7', 'bubble8', 'bubble9', 'bubble10'];
     var bubble_size = ['sm_bubble', 'md_bubble', 'big_bubble', 'biggest', 'sm_bubble', 'md_bubble'];
@@ -31,19 +32,21 @@ function make_bubble() {
         j = 0;
     }
 }
-
-function check_counter() {
+//checks attempts and runs switch based on attempts
+function  game_lose_condition() {
     var message = $('#message');
     console.log(counter);
     var bubble_container = $('.all_bubbles');
     switch (attempts) {
         case 3:
             $(bubble_container).show();
+            //Generate a bunch of bubbles to go along with the audio clip
             generate_bubbles = setInterval(make_bubble, 200);
             audio_clip($('#bubbles'));
             break;
         case 4:
             $(message).text('Oh No! Bruce is getting hungry');
+            //Even though I set this variable back to null it seems to continue running..
             generate_bubbles = null;
             break;
         case 6:
@@ -59,11 +62,9 @@ function check_counter() {
             counter = null;
             break;
     }
-    console.log('this is the interval ', generate_bubbles);
 }
 
 function card_creation(front_img_src, bootstrap_card_size) {
-
     var front_img = $('<img>').attr('src', front_img_src).addClass('cards');
     var back_img = $('<img>').attr('src', 'images/darla.jpg').addClass('cards');
     var div_back = $('<div>').addClass('back').append(back_img).attr('onclick', 'cardClick(this)');
@@ -75,7 +76,7 @@ function card_creation(front_img_src, bootstrap_card_size) {
     $('#game-area').append(div_card);
 }
 
-//loops through card creation until there are 18 cards
+//loops through card creation until there are x cards
 function board_creation() {
     var front_image_source = ['images/lilturtle.jpg',
         'images/darl.png',
@@ -182,10 +183,11 @@ function cardClick(element) {
             second_card_clicked = null;
             attempts++;
             display_stats();
+            //I put a time out condition so player can see that they did not have a match before Bruce shows up!
             setTimeout(function(){
-                check_counter();
+                game_lose_condition();
             },1000);
-        } //Cards did not match rest back to show and set global var to null
+        }
 
     }
 }
