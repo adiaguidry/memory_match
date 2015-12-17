@@ -1,21 +1,38 @@
 body {
     background-image: url("http://i.ytimg.com/vi/uip1tBrRtws/maxresdefault.jpg");
     background-size: cover;
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
 }
 
-.rest:hover, .nav>li>a:hover {
+.rest:hover, .nav > li > a:hover {
     background-color: transparent;
 }
+.bubble_easy_hard {
+    opacity: .6;
+    width: 100px;
+}
+.bubble_easy_hard:hover {
+    opacity: .9;
+}
+
 .intro {
     padding: 5%;
     text-align: center;
     font-size: 2em;
     font-family: 'Paytone One', sans-serif;
 }
+
 .intro h1 {
     font: 1.5em 'Paytone One', sans-serif;
 }
+.logo_div, nav ul li{
+    display: inline-block;
+    float: left;
+}
+.logo{
+    width:300px;
+}
+
 nav {
     float: right;
 }
@@ -26,127 +43,168 @@ ul li a {
     color: purple;
 
 }
+#game-area{
+    margin-top: -200px;
+}
+
 .well, .well a {
     background: transparent;
-    border: 5px solid #000;
+    border: 1px solid #fff;
+    margin-top: 100%;
     color: #fff;
 }
 
 .card .front {
     position: absolute;
- /*   transform: rotateY(180deg);
-    backface-visibility: hidden;
-    transition: transform .5s linear 0s; */
 }
 
 .card .back {
     position: absolute;
- /*   transform: rotateY(0deg);
-    backface-visibility: hidden;
-    transition: transform .5s linear 0s;*/
-}
-/*
-.card:hover > .front {
-    transform: rotateY(0deg);
 }
 
-.card:hover > .back {
-    transform: rotateY(180deg);
-}*/
+.bubble_easy_hard{
+
+}
 
 .bottom_row {
     margin-top: 20%;
 }
-.hook{
+
+.hook {
     position: absolute;
-    top:-380px;
+    top: -380px;
     transition-timing-function: ease-in-out;
+}
+.hook_img img {
+    width:170px;
 }
 
 @keyframes mymove {
-    0%   {left:0px; top:-380px;}
-    50%  {left:0px; top:0px;}
-    100% {left:0px; top:-380px;}
+    0% {
+        left: 0px;
+        top: -380px;
+    }
+    50% {
+        left: 0px;
+        top: 0px;
+    }
+    100% {
+        left: 0px;
+        top: -380px;
+    }
 }
 
 @-webkit-keyframes mymove {
-    0%   {left:0px; top:-380px;}
-    50%  {left:0px; top:0px;}
-    100% {left:0px; top:-380px;}
+    0% {
+        left: 0px;
+        top: -380px;
+    }
+    50% {
+        left: 0px;
+        top: 0px;
+    }
+    100% {
+        left: 0px;
+        top: -380px;
+    }
 }
 
-.hook{
+.hook {
 
     -webkit-animation: mymove 25s infinite; /* Chrome, Safari, Opera */
     animation: mymove 25s infinite;
 
 }
+
 .sharkBody {
     width: 50px;
     position: absolute;
     top: 500px;
     margin-left: 600px;
-    animation: shark 10s;
+    animation: shark 65s;
+    animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
 }
-
-.sharkTail {
-    width:60px;
+.sharkBody_end {
+    width: 600px;
     position: absolute;
-    top: 317px;
-    margin-left: 1334px;
-    animation: tail_fin 1s infinite;
-    animation-delay: 11s;
-    visibility: hidden;
-
+    bottom: 100px;
+    margin-left: 300px;
 }
 
-
-@keyframes tail_fin {
-    0%{visibility: visible;}
-    50%{transform: rotateY(35deg);}
-    100%{transform: rotateY(0deg);}
-
-
+#message{
+    font-size: 2em;
+    font-family: 'Paytone One', sans-serif;
+    color: #fff;
+    text-shadow: 2px 5px 3px orangered;
 }
 
 @keyframes shark {
-    0%   {width: 50px; left:0px; top:10px;}
-    45% {width: 100px; margin-left:700px; top: 100px;}
-    50% {width:300px; margin-left:600px; top:200px; }
-    60% {width:350px; margin-left:1160px; top:300px; }
-    60% {width:350px; margin-left:900px; top:300px; }
-    80% {width:300px; margin-left:1100px; top:300px; }
-    90% {width:300px; margin-left:1160px; top:300px; }
-    100% {width:300px; margin-left:1100px; top:300px; }
-}
-/*
-@keyframes tail {
-    0%   {width: 30px; left:0px; top:10px;}
-    45% {width: 30px; margin-left:800px; top: 100px;}
-    50% {width:30px; margin-left:700px; top:200px; }
-    60% {width:50px; margin-left:1260px; top:300px; }
-    60% {width:50px; margin-left:1000px; top:300px; }
-    80% {width:30px; margin-left:1200px; top:300px; }
-    90% {width:60px; margin-left:1260px; top:300px; }
-    100% {width:60px; margin-left:1330px; top:320px; }
-}
-*/
-@keyframes bubble {
-    0%   {left:0px; bottom:0px;}
-    100% {left:0px; bottom: 1200px;}
+    0% {
+        width: 50px;
+        left: 0px;
+        top: 10px;
+    }
+    25% {
+        width: 100px;
+        margin-left: 300px;
+        top: 100px;
+    }
+    45% {
+        width: 100px;
+        margin-left: 600px;
+        top: 100px;
+    }
+    50% {
+        width: 300px;
+        margin-left: 800px;
+        top: 200px;
+    }
+    60% {
+        width: 350px;
+        margin-left: 1060px;
+        top: 300px;
+    }
+    80% {
+        width: 350px;
+        margin-left: 1100px;
+        top: 300px;
+    }
+    90% {
+        width: 350px;
+        margin-left: 1160px;
+        top: 300px;
+    }
+    100% {
+        width: 350px;
+        margin-left: 1000px;
+        top: 300px;
+    }
 }
 
-.cards img {
+
+@keyframes bubble {
+    0% {
+        left: 0px;
+        bottom: 0px;
+    }
+    100% {
+        left: 0px;
+        bottom: 1200px;
+    }
+}
+
+.card img, .cards {
     width: 120px;
-    height:144px;
+    height: 144px;
     overflow: hidden;
 }
-.about_bubble{
-    width:120px;
+
+.about_bubble {
+    width: 120px;
     opacity: .8;
-    margin-top:35%;
 }
+
 .about_pic {
     width: 600px;
     margin: 0 20%;
@@ -154,49 +212,124 @@ ul li a {
 }
 
 .bubbles {
-    opacity:.5;
-    position:absolute;
-    bottom:0px;
-    margin-left:1200px;
-    animation: bubble 65s infinite;
+    opacity: .5;
+    position: absolute;
+    bottom: 0px;
+    margin-left: 600px;
 }
+
 .big_bubble {
-    width:30px;
+    width: 30px;
+
+}
+.biggest {
+    width: 50px;
 }
 
 .md_bubble {
-    width:20px;
+    width: 20px;
+
 }
-.sm_bubble{
-    width:15px;
+
+.sm_bubble {
+    width: 15px;
+
 }
-.bubble1{
-    margin-left:1200px;
+
+.bubble1 {
+    margin-left: 1200px;
+    animation: bubble 120s infinite;
 }
-.bubble2{
-    margin-left:180px;
+
+.bubble2 {
+    margin-left: 480px;
+    animation: bubble 95s infinite;
 }
-.bubble3{
-    margin-left:260px;
+
+.bubble3 {
+    margin-left: 400px;
+    animation: bubble 90s infinite;
 }
-.bubble4{
-    margin-left:1100px;
+
+.bubble4 {
+    margin-left: 1150px;
+    animation: bubble 60s infinite;
 }
-.bubble5{
-    margin-left:580px;
+
+.bubble5 {
+    margin-left: 580px;
+    animation: bubble 90s infinite;
 }
-.bubble6{
-    margin-left:660px;
+
+.bubble6 {
+    margin-left: 300px;
+    animation: bubble 75s infinite;
 }
-.bubble7{
-    margin-left:270px;
+
+.bubble7 {
+    margin-left: 230px;
+    animation: bubble 100s infinite;
 }
-.bubble8{
-    margin-left:710px;
+
+.bubble8 {
+    margin-left: 710px;
+    animation: bubble 95s infinite;
 }
-.bubble9{
-    margin-left:1080px;
+
+.bubble9 {
+    margin-left: 1000px;
+    animation: bubble 60s infinite;
 }
-.bubble10{
-    margin-left:860px;
+
+.bubble10 {
+    margin-left: 860px;
+    animation: bubble 100s infinite;
+}
+
+.match {
+    opacity: .4;
+}
+
+.win_container {
+    text-align: center;
+    height:40px;
+}
+
+#win, .play_again {
+    visibility: hidden;
+    font-size: 3.5em;
+    font-family: 'Paytone One', sans-serif;
+    color: #fff;
+    text-shadow: 2px 5px 3px orangered;
+    cursor: pointer;
+}
+
+.hide, .match_hide {
+    visibility: hidden;
+}
+.end{
+    background-color: red;
+    opacity: .5;
+}
+.mobile{
+    display: none;
+}
+@media screen and (max-width: 900px) {
+    .container {
+        display: none;
+    }
+    .mobile{
+        display: block;
+        color: white;
+        margin: 2%;
+        text-shadow: 2px 2px #000;
+        font-family: 'Paytone One', sans-serif;
+        text-align: center;
+
+    }
+    body {
+        background-image: url("http://www.disney.co.uk/finding-nemo/images/backgrounds/home.jpg");
+        height:1300px;
+    }
+
 }
